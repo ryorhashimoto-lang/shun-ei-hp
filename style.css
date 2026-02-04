@@ -1,10 +1,18 @@
 /* 基本設定 */
+:root {
+    --main-green: #006039; /* ロレックス風の深いグリーン */
+    --accent-gold: #c5a572; /* アクセントとしてのゴールド（任意） */
+    --text-dark: #222;
+    --text-light: #555;
+    --bg-light: #fdfdfd;
+}
+
 body {
     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Biz UDPGothic", sans-serif;
     margin: 0;
-    color: #333;
+    color: var(--text-dark);
     line-height: 1.6;
-    background-color: #fdfdfd;
+    background-color: var(--bg-light);
 }
 a { text-decoration: none; color: inherit; }
 
@@ -16,8 +24,18 @@ a { text-decoration: none; color: inherit; }
 h2 {
     font-size: 2.2em;
     margin-bottom: 50px;
-    color: #222;
+    color: var(--text-dark);
     font-weight: bold;
+    position: relative;
+}
+/* h2の下にグリーンの線を入れるアクセント */
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--main-green);
+    margin: 20px auto 0;
 }
 
 /* ヘッダー */
@@ -31,11 +49,12 @@ h2 {
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 3px solid var(--main-green); /* ヘッダー下部にグリーンのライン */
 }
 .logo {
     font-size: 1.5em;
     font-weight: bold;
-    color: #000;
+    color: var(--main-green); /* ロゴをグリーンに */
 }
 .btn-login, .btn-register {
     margin-left: 10px;
@@ -43,15 +62,26 @@ h2 {
     border-radius: 4px;
     font-weight: bold;
     font-size: 0.9em;
+    transition: all 0.3s;
+}
+.btn-login {
+    color: var(--main-green);
+    border: 1px solid var(--main-green);
+}
+.btn-login:hover {
+    background-color: rgba(0, 96, 57, 0.1);
 }
 .btn-register {
-    background-color: #000;
+    background-color: var(--main-green);
     color: #fff;
+}
+.btn-register:hover {
+    background-color: #004d2e; /* 少し濃いグリーンへ */
 }
 
 /* お知らせバー */
 .alert-bar {
-    background-color: #e60012;
+    background-color: var(--main-green);
     color: #fff;
     text-align: center;
     padding: 12px;
@@ -65,54 +95,83 @@ h2 {
     align-items: center;
     justify-content: center;
     padding: 60px 5%;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* 高級感のあるグリーン系のグラデーション */
+    background: linear-gradient(135deg, #f0f7f4 0%, #d9e8e2 100%);
     flex-wrap: wrap;
+    gap: 40px;
 }
-.hero-content { flex: 1; min-width: 300px; padding: 20px; text-align: left; }
-.hero-image { flex: 1; min-width: 300px; padding: 20px; }
+.hero-content { flex: 1; min-width: 300px; text-align: left; }
+
+/* 画像エリアを定義 */
+.hero-images-area {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* 画像間の隙間 */
+}
 
 .hero-content h1 {
     font-size: 2.5em;
     line-height: 1.3;
     margin-bottom: 20px;
-    color: #000;
+    color: var(--text-dark);
 }
 .hero-content p {
     font-size: 1.1em;
     margin-bottom: 30px;
-    color: #555;
+    color: var(--text-light);
 }
 .cta-button {
     display: inline-block;
-    background-color: #e60012;
+    background-color: var(--main-green);
     color: white;
     padding: 18px 40px;
     border-radius: 50px;
     font-size: 1.2em;
     font-weight: bold;
-    box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
-    transition: transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 96, 57, 0.3); /* グリーンの影 */
+    transition: transform 0.2s, background-color 0.3s;
 }
 .cta-button:hover {
     transform: translateY(-2px);
+    background-color: #004d2e;
 }
 .small-note {
     font-size: 0.85em;
     color: #666;
     margin-top: 15px;
 }
-.placeholder-box {
+
+/* ヒーローセクションの画像スタイル */
+.hero-image-item {
+    flex: 1;
+    max-width: 45%; /* 2枚並べるので幅を制限 */
+    text-align: center;
+}
+.hero-image-item img {
     width: 100%;
-    height: 350px;
-    background-color: #ddd; /* ここに実際の画像を入れます */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: 2px solid #fff; /* 白枠で上品に */
+}
+/* 画像が無い時のプレースホルダー（画像セット後は不要になります） */
+.placeholder-image {
+    background-color: #ccc;
+    min-height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    color: #555;
+    color: #666;
     font-weight: bold;
-    text-align: center;
 }
+.image-caption {
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--main-green);
+}
+
 
 /* 導入メリット */
 .benefits {
@@ -133,9 +192,10 @@ h2 {
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.03);
     background: #fff;
+    border-top: 4px solid var(--main-green); /* 上部にグリーンのアクセント */
 }
 .benefit-card h3 {
-    color: #e60012;
+    color: var(--main-green);
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -143,7 +203,7 @@ h2 {
 
 /* 機能 */
 .features {
-    background-color: #f9f9f9;
+    background-color: #f9fbf9; /* ほんのりグリーンがかったグレー */
 }
 .features-grid {
     display: flex;
@@ -160,6 +220,7 @@ h2 {
 .icon-box {
     font-size: 3em;
     margin-bottom: 20px;
+    color: var(--main-green); /* アイコンをグリーンに */
 }
 
 /* 料金プラン */
@@ -179,19 +240,21 @@ h2 {
     border-radius: 10px;
     background: #fff;
     position: relative;
+    transition: all 0.3s;
 }
 .highlight-plan {
-    border: 2px solid #e60012;
+    border: 2px solid var(--main-green);
     transform: scale(1.05);
     z-index: 10;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 96, 57, 0.15);
+    background: #fff;
 }
 .badge {
     position: absolute;
     top: -15px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #e60012;
+    background-color: var(--main-green);
     color: #fff;
     padding: 5px 15px;
     border-radius: 20px;
@@ -201,12 +264,12 @@ h2 {
 .price {
     font-size: 2em;
     font-weight: bold;
-    color: #333;
+    color: var(--main-green);
     margin: 20px 0;
 }
 .tax {
     font-size: 0.5em;
-    color: #666;
+    color: var(--text-light);
     font-weight: normal;
 }
 .plan-card ul {
@@ -219,13 +282,34 @@ h2 {
     padding: 10px 0;
     border-bottom: 1px solid #eee;
 }
+/* リストのアイコンをグリーンに（擬似要素で追加） */
+.plan-card ul li::before {
+    content: '✓';
+    color: var(--main-green);
+    font-weight: bold;
+    margin-right: 10px;
+}
 
 /* お問い合わせ・動画 */
 .contact {
-    background-color: #333;
+    background-color: #1a1a1a; /* フッターに近い濃いグレーに変更 */
     color: #fff;
+    position: relative;
 }
+/* お問い合わせセクションの上部にグリーンのライン */
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--main-green);
+}
+
 .contact h2 { color: #fff; }
+.contact h2::after { background-color: var(--main-green); } /* 白文字なので線はグリーンで目立たせる */
+
 .company-info {
     margin-bottom: 30px;
     font-size: 1.1em;
@@ -234,6 +318,15 @@ h2 {
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 10px;
+    color: var(--main-green); /* 電話番号を強調 */
+}
+.cta-contact {
+    background-color: var(--main-green);
+    border: 2px solid var(--main-green);
+}
+.cta-contact:hover {
+    background-color: transparent;
+    color: var(--main-green);
 }
 
 /* 動画のレスポンシブ対応 */
@@ -245,8 +338,9 @@ h2 {
     padding-bottom: 56.25%; /* 16:9比率 */
     height: 0;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     border-radius: 12px;
+    border: 3px solid var(--main-green); /* 動画枠にグリーン */
 }
 .video-container iframe {
     position: absolute;
@@ -258,7 +352,7 @@ h2 {
 
 /* フッター */
 .footer {
-    background-color: #222;
+    background-color: #111;
     color: #999;
     padding: 30px;
     text-align: center;
@@ -269,12 +363,27 @@ h2 {
     color: #ccc;
     transition: color 0.3s;
 }
-.footer-links a:hover { color: #fff; }
+.footer-links a:hover { color: var(--main-green); }
 
 /* スマホ対応用調整 */
 @media (max-width: 768px) {
-    .hero-content { text-align: center; }
+    .hero {
+        flex-direction: column-reverse; /* スマホでは画像を上に持ってくる */
+        padding-top: 40px;
+        text-align: center;
+    }
+    .hero-content { text-align: center; padding: 0 20px; }
     .hero-content h1 { font-size: 1.8em; }
-    .highlight-plan { transform: scale(1); border: 2px solid #e60012; }
-    .video-container { width: 95%; } /* スマホでは画面いっぱいより少し余白を持たせる */
+    
+    /* スマホでの画像レイアウト調整 */
+    .hero-images-area {
+        width: 100%;
+        gap: 15px;
+    }
+    .hero-image-item {
+        max-width: 48%; /* スマホでも横並びを維持 */
+    }
+
+    .highlight-plan { transform: scale(1); border: 2px solid var(--main-green); }
+    .video-container { width: 95%; border-width: 2px; }
 }
